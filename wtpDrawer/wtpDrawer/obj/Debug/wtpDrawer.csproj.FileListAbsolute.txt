@@ -1,0 +1,17 @@
+C:\Users\Renan\AppData\Local\Temporary Projects\wtpDrawer\bin\Debug\wtpDrawer.exe
+C:\Users\Renan\AppData\Local\Temporary Projects\wtpDrawer\bin\Debug\wtpDrawer.pdb
+C:\Users\Renan\AppData\Local\Temporary Projects\wtpDrawer\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Renan\AppData\Local\Temporary Projects\wtpDrawer\obj\Debug\wtpDrawer.Properties.Resources.resources
+C:\Users\Renan\AppData\Local\Temporary Projects\wtpDrawer\obj\Debug\wtpDrawer.csproj.GenerateResource.Cache
+C:\Users\Renan\AppData\Local\Temporary Projects\wtpDrawer\obj\Debug\wtpDrawer.exe
+C:\Users\Renan\AppData\Local\Temporary Projects\wtpDrawer\obj\Debug\wtpDrawer.pdb
+C:\Users\Renan\AppData\Local\Temporary Projects\wtpDrawer\obj\Debug\wtpDrawer.frmMain.resources
+C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\obj\Debug\wtpDrawer.exe
+C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\obj\Debug\wtpDrawer.pdb
+C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\bin\Debug\wtpDrawer.exe
+C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\bin\Debug\wtpDrawer.pdb
+C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\obj\Debug\ResolveAssemblyReference.cache
+C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\obj\Debug\wtpDrawer.frmMain.resources
+C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\obj\Debug\wtpDrawer.Properties.Resources.resources
+C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\obj\Debug\wtpDrawer.csproj.GenerateResource.Cache
+C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\bin\Debug\wtpDrawer.exe.config
