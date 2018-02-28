@@ -8,8 +8,7 @@ using System.Text;
 
 namespace wtpDrawer
 {
-    public partial class frmMain : Form
-    {
+    public partial class frmMain : Form {
 
         private String F_COR = "-c";
         private String F_MATRIX = "-m";
@@ -26,13 +25,14 @@ namespace wtpDrawer
         private bool uPen = false;
         private bool uFill = false;
         private bool uGrade = false;
+        private bool uColors = false;
         
         public frmMain(){
             InitializeComponent();
         }
 
-        private void frmMain_Load(object sender, EventArgs e)
-        {
+        private void frmMain_Load(object sender, EventArgs e){
+           
             paleta = new List<SolidBrush>();
 
             setPaleta();
@@ -42,11 +42,12 @@ namespace wtpDrawer
 
             bPen.Checked = true;
             bGrid.Checked = true;
-
-                        
+                                   
         }
 
         private void setPaleta() {
+
+            paleta.Clear();
 
             paleta.Add(new SolidBrush(Color.FromArgb(88, 174, 124))); //fundo
             paleta.Add(new SolidBrush(Color.FromArgb(255, 201, 14))); //pele 1
@@ -107,7 +108,7 @@ namespace wtpDrawer
         private void bNew_Click(object sender, EventArgs e)
         {
             if (matrix != null) {
-                if (MessageBox.Show("Deseja iniciar um no PixelArt?", "Novo", MessageBoxButtons.YesNo) == DialogResult.No) {
+                if (MessageBox.Show("Alterações não salvas serão perdidas. Continuar?", "Atenção", MessageBoxButtons.YesNo) == DialogResult.No) {
                     return;
                 }
             }
@@ -124,7 +125,7 @@ namespace wtpDrawer
             matrix = new int[(pcCanvas.Width/PTAM),(pcCanvas.Height/PTAM)];
 
             //fundo
-            g.FillRectangle( paleta[0] , new Rectangle(0,0,pcCanvas.Image.Width,pcCanvas.Image.Height));
+            g.Clear(paleta[0].Color);
 
             drawGrid();
 
@@ -146,16 +147,46 @@ namespace wtpDrawer
                     drawPen(getPix(e.X), getPix(e.Y));
                 }
 
-                if (uFill) {
-                    drawFill(getPix(e.X),getPix(e.Y));
+                if (uFill)
+                {
+                    drawFill(getPix(e.X), getPix(e.Y));
+                }
+
+                if (uColors)
+                {
+                    changeColors(getPix(e.X), getPix(e.Y));
                 }
             }
             else if (e.Button == MouseButtons.Right) {
-
-                sCor = matrix[getPix(e.X), getPix(e.Y)];
+                
+                int i = getPix(e.X);
+                int j = getPix(e.Y);
+                if (taDentroMatrix(i,j))
+                sCor = matrix[i,j];
                 exibeCor();
 
             }
+        }
+
+        private void changeColors(int i, int j) { 
+        
+            if (!taDentroMatrix(i,j)){return;}
+
+            int c = matrix[i, j];
+
+            if (c != sCor) {
+
+                for (int k = 0; k < matrix.GetLength(0); k++) {
+                    for (int  l = 0; l < matrix.GetLength(1); l++)
+                    {
+                        if (matrix[k, l] == c) { matrix[k, l] = sCor; }
+                    }
+                }
+
+            }
+
+            this.Refresh();
+
         }
 
         private int getPix(int v){
@@ -175,7 +206,6 @@ namespace wtpDrawer
             this.Refresh();
 
         }
-
 
         private void drawFill(int i, int j)
         {
@@ -219,8 +249,6 @@ namespace wtpDrawer
         private void frmMain_Paint(object sender, PaintEventArgs e){
 
             if (matrix != null){
-
-
                 for (int i = 0; i < matrix.GetLength(0); i++){
                     for (int j = 0; j < matrix.GetLength(1); j++)
                     {
@@ -262,7 +290,6 @@ namespace wtpDrawer
                 }
             }
         }
-
 
         private void cGrid_CheckedChanged(object sender, EventArgs e)
         {
@@ -312,8 +339,6 @@ namespace wtpDrawer
             d.Dispose();
         }
 
-
-
         private void addColors(int r1, int g1, int b1, int r2, int g2, int b2, int r3, int g3, int b3)
         {
 
@@ -338,8 +363,6 @@ namespace wtpDrawer
             }
 
         }
-
-
 
         private void bSave_Click(object sender, EventArgs e){
             
@@ -375,18 +398,24 @@ namespace wtpDrawer
             if (f.ShowDialog() != DialogResult.Cancel){
 
                 if (matrix != null){
-                    if (MessageBox.Show("Deseja abrir um no PixelArt?", "Novo", MessageBoxButtons.YesNo) == DialogResult.No) {
+                    if (MessageBox.Show("Alterações não salvas serão perdidas. Continuar?", "Atenção", MessageBoxButtons.YesNo) == DialogResult.No) {
                         f.Dispose();
                         return;
                     }
+                }
 
                     setPaleta();
+                    inicializaCanvas();
                     abreArquivo(f.FileName);
                     montaPaleta();
 
                 }
-            }
+            
             f.Dispose();
+        }
+
+        private void bColors_CheckedChanged(object sender, EventArgs e){
+            uColors = bColors.Checked;
         }
 
         private void abreArquivo(String path){
@@ -465,10 +494,13 @@ namespace wtpDrawer
                     Color c = paleta[i].Color;
                     sb.AppendLine(c.R + ";" + c.G + ";" + c.B);
                 }
+                sb.AppendLine(F_COR);
+
             }
 
             sb.AppendLine(F_MATRIX);
             sb.AppendLine(matrix.GetLength(0) + ";" + matrix.GetLength(1));
+            sb.AppendLine(F_MATRIX);
 
             String line; ;
             for (int i = 0; i < matrix.GetLength(0); i++){
@@ -483,7 +515,132 @@ namespace wtpDrawer
 
         }
 
-   
+        private void bExport_Click(object sender, EventArgs e)
+        {
 
+            if (matrix == null) { return; }
+
+            SaveFileDialog f = new SaveFileDialog();
+            f.Filter = "(*.png)|*.png";
+            if (f.ShowDialog() != DialogResult.Cancel) {
+
+                if (File.Exists(f.FileName)){
+                    if (MessageBox.Show("Deseja substituir a imagem existente?","Exportação",MessageBoxButtons.YesNo) == DialogResult.No){
+                        f.Dispose();
+                        return;
+                    }
+                }
+
+                Bitmap b = geraPng();
+                b.Save(f.FileName,System.Drawing.Imaging.ImageFormat.Png);
+                b.Dispose();
+
+                MessageBox.Show("Arquivo exportado!");
+            
+            }
+            f.Dispose();
+        }
+
+        struct pix {
+            public int x;
+            public int y;
+            public int cor;
+        }
+
+        private Bitmap geraPng() { 
+        
+            //verifico o corte
+
+            int wM = matrix.GetLength(0);
+            int hM = matrix.GetLength(1);
+
+            int x2 = 0;
+            int y2 =0;
+            int x1 =wM-1;
+            int y1 =hM-1;
+            bool transp = true;
+
+             List<pix> px = new List<pix>();
+            
+            for (int i = 0; i < wM; i++) {
+                for (int j = 0; j < hM; j++)
+                {
+                    if (matrix[i, j] != 0) {
+                        
+                        pix p = new pix();
+                        p.x = i;
+                        p.y = j;
+                        p.cor = matrix[i, j];
+
+                        px.Add(p);
+
+                        transp = false;
+                        if (i < x1) { x1 = i; }
+                        if (j < y1) { y1 = j; }
+                        if (i > x2) { x2 = i; }
+                        if (j > y2) { y2 = j; }
+                    }
+                }
+            }
+
+            if (transp) {
+                x1 = 0;
+                y1 = 0;
+                x2 = wM - 1;
+                y2 = hM - 1;
+            }
+
+            //algora calculo o size
+            int w = (x2 - x1) + 1;
+            int hreal = (y2 - y1) + 1;
+            int h = Math.Max((y2 - y1) + 1,Properties.Settings.Default.Max);
+
+            int difH = h - hreal;
+
+
+            //agora crio o mini bitmap
+          
+            Bitmap mini = new Bitmap(w, h);
+            Graphics gg = Graphics.FromImage(mini);
+
+            gg.Clear(Color.Transparent);
+            foreach (pix p in px) {
+
+                mini.SetPixel(p.x - x1, (p.y - y1) + difH, paleta[p.cor].Color);
+
+            }
+
+            //return mini;
+            //agora vou multiplicar pela escala
+
+            int escala = Properties.Settings.Default.Escala;
+
+            Bitmap final = new Bitmap(mini.Width * escala, mini.Height * escala);
+            gg = Graphics.FromImage(final);
+            gg.Clear(Color.Transparent);
+            gg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            gg.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+            gg.DrawImage(mini, new Rectangle(0, 0, final.Width, final.Height), new Rectangle(0, 0, mini.Width, mini.Height), GraphicsUnit.Pixel);
+
+            gg.Dispose();
+
+            return final;
+
+        }
+
+        private void bConfig_Click(object sender, EventArgs e)
+        {
+
+            frmSettings frm = new frmSettings(pcCanvas.Height/PTAM);
+            frm.ShowDialog();
+            frm.Close();
+            frm.Dispose();
+
+
+        }
+     
+  
+       
+   
     }
 }

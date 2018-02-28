@@ -15,3 +15,4 @@ C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\obj\Debug\wtpDrawer.frmMain.res
 C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\obj\Debug\wtpDrawer.Properties.Resources.resources
 C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\obj\Debug\wtpDrawer.csproj.GenerateResource.Cache
 C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\bin\Debug\wtpDrawer.exe.config
+C:\desenvolvimento\wtpDrawer\wtpDrawer\wtpDrawer\obj\Debug\wtpDrawer.frmSettings.resources

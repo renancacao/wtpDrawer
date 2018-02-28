@@ -22,5 +22,29 @@ namespace wtpDrawer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int Max {
+            get {
+                return ((int)(this["Max"]));
+            }
+            set {
+                this["Max"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int Escala {
+            get {
+                return ((int)(this["Escala"]));
+            }
+            set {
+                this["Escala"] = value;
+            }
+        }
     }
 }

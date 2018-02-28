@@ -34,6 +34,9 @@
             this.menuModelo = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pixelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pixelGrandeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bConfig = new System.Windows.Forms.Button();
+            this.bExport = new System.Windows.Forms.Button();
+            this.bColors = new System.Windows.Forms.RadioButton();
             this.bOpen = new System.Windows.Forms.Button();
             this.bSave = new System.Windows.Forms.Button();
             this.pcCanvas = new System.Windows.Forms.PictureBox();
@@ -88,11 +91,45 @@
             this.pixelGrandeToolStripMenuItem.Text = "Pixel Grande";
             this.pixelGrandeToolStripMenuItem.Click += new System.EventHandler(this.pixelGrandeToolStripMenuItem_Click);
             // 
+            // bConfig
+            // 
+            this.bConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.bConfig.Image = global::wtpDrawer.Properties.Resources.settings;
+            this.bConfig.Location = new System.Drawing.Point(12, 468);
+            this.bConfig.Name = "bConfig";
+            this.bConfig.Size = new System.Drawing.Size(30, 30);
+            this.bConfig.TabIndex = 16;
+            this.bConfig.UseVisualStyleBackColor = true;
+            this.bConfig.Click += new System.EventHandler(this.bConfig_Click);
+            // 
+            // bExport
+            // 
+            this.bExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bExport.Image = global::wtpDrawer.Properties.Resources.exportimg;
+            this.bExport.Location = new System.Drawing.Point(500, 468);
+            this.bExport.Name = "bExport";
+            this.bExport.Size = new System.Drawing.Size(30, 30);
+            this.bExport.TabIndex = 15;
+            this.bExport.UseVisualStyleBackColor = true;
+            this.bExport.Click += new System.EventHandler(this.bExport_Click);
+            // 
+            // bColors
+            // 
+            this.bColors.Appearance = System.Windows.Forms.Appearance.Button;
+            this.bColors.Image = global::wtpDrawer.Properties.Resources.colors;
+            this.bColors.Location = new System.Drawing.Point(358, 84);
+            this.bColors.Name = "bColors";
+            this.bColors.Size = new System.Drawing.Size(30, 30);
+            this.bColors.TabIndex = 14;
+            this.bColors.TabStop = true;
+            this.bColors.UseVisualStyleBackColor = true;
+            this.bColors.CheckedChanged += new System.EventHandler(this.bColors_CheckedChanged);
+            // 
             // bOpen
             // 
             this.bOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bOpen.Image = global::wtpDrawer.Properties.Resources.folder;
-            this.bOpen.Location = new System.Drawing.Point(573, 477);
+            this.bOpen.Location = new System.Drawing.Point(572, 468);
             this.bOpen.Name = "bOpen";
             this.bOpen.Size = new System.Drawing.Size(30, 30);
             this.bOpen.TabIndex = 13;
@@ -103,7 +140,7 @@
             // 
             this.bSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bSave.Image = global::wtpDrawer.Properties.Resources.save;
-            this.bSave.Location = new System.Drawing.Point(609, 477);
+            this.bSave.Location = new System.Drawing.Point(608, 468);
             this.bSave.Name = "bSave";
             this.bSave.Size = new System.Drawing.Size(30, 30);
             this.bSave.TabIndex = 12;
@@ -124,7 +161,7 @@
             // 
             this.bGrid.Appearance = System.Windows.Forms.Appearance.Button;
             this.bGrid.Image = global::wtpDrawer.Properties.Resources.grid;
-            this.bGrid.Location = new System.Drawing.Point(358, 84);
+            this.bGrid.Location = new System.Drawing.Point(358, 120);
             this.bGrid.Name = "bGrid";
             this.bGrid.Size = new System.Drawing.Size(30, 30);
             this.bGrid.TabIndex = 9;
@@ -134,7 +171,7 @@
             // bModelo
             // 
             this.bModelo.Image = global::wtpDrawer.Properties.Resources.pixel;
-            this.bModelo.Location = new System.Drawing.Point(358, 120);
+            this.bModelo.Location = new System.Drawing.Point(358, 156);
             this.bModelo.Name = "bModelo";
             this.bModelo.Size = new System.Drawing.Size(30, 30);
             this.bModelo.TabIndex = 10;
@@ -145,7 +182,7 @@
             // 
             this.bNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bNew.Image = global::wtpDrawer.Properties.Resources._new;
-            this.bNew.Location = new System.Drawing.Point(537, 477);
+            this.bNew.Location = new System.Drawing.Point(536, 468);
             this.bNew.Name = "bNew";
             this.bNew.Size = new System.Drawing.Size(30, 30);
             this.bNew.TabIndex = 1;
@@ -181,13 +218,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(650, 510);
+            this.Controls.Add(this.bConfig);
+            this.Controls.Add(this.bExport);
+            this.Controls.Add(this.bColors);
             this.Controls.Add(this.bOpen);
             this.Controls.Add(this.pPaleta);
             this.Controls.Add(this.bSave);
             this.Controls.Add(this.pcCanvas);
+            this.Controls.Add(this.pCor);
             this.Controls.Add(this.bGrid);
             this.Controls.Add(this.bModelo);
-            this.Controls.Add(this.pCor);
             this.Controls.Add(this.bNew);
             this.Controls.Add(this.bFill);
             this.Controls.Add(this.bPen);
@@ -216,6 +256,9 @@
         private System.Windows.Forms.ToolStripMenuItem pixelGrandeToolStripMenuItem;
         private System.Windows.Forms.Button bSave;
         private System.Windows.Forms.Button bOpen;
+        private System.Windows.Forms.RadioButton bColors;
+        private System.Windows.Forms.Button bExport;
+        private System.Windows.Forms.Button bConfig;
 
     }
 }
