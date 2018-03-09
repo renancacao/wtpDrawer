@@ -26,6 +26,10 @@ namespace wtpDrawer
         private bool uFill = false;
         private bool uGrade = false;
         private bool uColors = false;
+
+        private List<int[,]> matrixStates = new List<int[,]>();
+
+        private bool alterou = false;
         
         public frmMain(){
             InitializeComponent();
@@ -35,17 +39,18 @@ namespace wtpDrawer
            
             paleta = new List<SolidBrush>();
 
-            setPaleta();
+            bNew_Click(null, null);
 
-            montaPaleta();
             exibeCor();
 
             bPen.Checked = true;
             bGrid.Checked = true;
+
+            
                                    
         }
 
-        private void setPaleta() {
+        private void setPaletaInicial() {
 
             paleta.Clear();
 
@@ -74,6 +79,8 @@ namespace wtpDrawer
             addColors(241, 224, 241, 163, 73, 164, 35, 16, 35);
 
             coresOriginais = paleta.Count;
+
+            montaPaleta();
 
         }
 
@@ -117,6 +124,9 @@ namespace wtpDrawer
 
         private void inicializaCanvas() {
 
+            setPaletaInicial();
+
+            matrixStates.Clear();
             
             pcCanvas.Image = new Bitmap(pcCanvas.Width, pcCanvas.Height);
             g = Graphics.FromImage(pcCanvas.Image);
@@ -129,6 +139,7 @@ namespace wtpDrawer
 
             drawGrid();
 
+            matrixStates.Add((int[,])matrix.Clone());
 
         }
 
@@ -186,6 +197,8 @@ namespace wtpDrawer
             }
 
             this.Refresh();
+            alterou = true;
+
 
         }
 
@@ -204,6 +217,7 @@ namespace wtpDrawer
 
             matrix[i, j] = sCor;
             this.Refresh();
+            alterou = true;
 
         }
 
@@ -217,6 +231,8 @@ namespace wtpDrawer
             }
                        
             this.Refresh();
+            alterou = true;
+
 
         }
 
@@ -404,7 +420,6 @@ namespace wtpDrawer
                     }
                 }
 
-                    setPaleta();
                     inicializaCanvas();
                     abreArquivo(f.FileName);
                     montaPaleta();
@@ -479,6 +494,7 @@ namespace wtpDrawer
 
             }
 
+            matrixStates.Add((int[,])matrix.Clone());
 
         }
 
@@ -638,6 +654,35 @@ namespace wtpDrawer
 
 
         }
+
+        private void bZ_Click(object sender, EventArgs e)
+        {
+            
+            
+            while (matrixStates.Count > 1 && matrixStates[matrixStates.Count-1].seque (matrix)){
+                matrixStates.RemoveAt(matrixStates.Count-1);
+            }
+
+            
+                matrix = matrixStates[matrixStates.Count - 1];
+                if (matrixStates.Count > 1){
+                    matrixStates.RemoveAt(matrixStates.Count - 1);
+                }
+
+                this.Refresh();
+            
+            
+        }
+
+        private void pcCanvas_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (alterou) {
+                matrixStates.Add((int[,])matrix.Clone());
+                alterou = false;
+            }
+        }
+
+   
      
   
        

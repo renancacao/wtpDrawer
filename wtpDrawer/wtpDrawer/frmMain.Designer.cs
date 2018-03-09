@@ -34,6 +34,7 @@
             this.menuModelo = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pixelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pixelGrandeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bZ = new System.Windows.Forms.Button();
             this.bConfig = new System.Windows.Forms.Button();
             this.bExport = new System.Windows.Forms.Button();
             this.bColors = new System.Windows.Forms.RadioButton();
@@ -90,6 +91,16 @@
             this.pixelGrandeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.pixelGrandeToolStripMenuItem.Text = "Pixel Grande";
             this.pixelGrandeToolStripMenuItem.Click += new System.EventHandler(this.pixelGrandeToolStripMenuItem_Click);
+            // 
+            // bZ
+            // 
+            this.bZ.Image = global::wtpDrawer.Properties.Resources.back;
+            this.bZ.Location = new System.Drawing.Point(358, 120);
+            this.bZ.Name = "bZ";
+            this.bZ.Size = new System.Drawing.Size(30, 30);
+            this.bZ.TabIndex = 17;
+            this.bZ.UseVisualStyleBackColor = true;
+            this.bZ.Click += new System.EventHandler(this.bZ_Click);
             // 
             // bConfig
             // 
@@ -156,12 +167,13 @@
             this.pcCanvas.TabStop = false;
             this.pcCanvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pcCanvas_MouseMove);
             this.pcCanvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pcCanvas_MouseClick);
+            this.pcCanvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pcCanvas_MouseUp);
             // 
             // bGrid
             // 
             this.bGrid.Appearance = System.Windows.Forms.Appearance.Button;
             this.bGrid.Image = global::wtpDrawer.Properties.Resources.grid;
-            this.bGrid.Location = new System.Drawing.Point(358, 120);
+            this.bGrid.Location = new System.Drawing.Point(358, 207);
             this.bGrid.Name = "bGrid";
             this.bGrid.Size = new System.Drawing.Size(30, 30);
             this.bGrid.TabIndex = 9;
@@ -171,7 +183,7 @@
             // bModelo
             // 
             this.bModelo.Image = global::wtpDrawer.Properties.Resources.pixel;
-            this.bModelo.Location = new System.Drawing.Point(358, 156);
+            this.bModelo.Location = new System.Drawing.Point(358, 243);
             this.bModelo.Name = "bModelo";
             this.bModelo.Size = new System.Drawing.Size(30, 30);
             this.bModelo.TabIndex = 10;
@@ -218,6 +230,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(650, 510);
+            this.Controls.Add(this.bZ);
             this.Controls.Add(this.bConfig);
             this.Controls.Add(this.bExport);
             this.Controls.Add(this.bColors);
@@ -259,6 +272,7 @@
         private System.Windows.Forms.RadioButton bColors;
         private System.Windows.Forms.Button bExport;
         private System.Windows.Forms.Button bConfig;
+        private System.Windows.Forms.Button bZ;
 
     }
 }
